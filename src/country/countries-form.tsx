@@ -1,0 +1,315 @@
+import { Item } from "onecore"
+import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react"
+import {
+  buildFromUrl,
+  buildMessage,
+  checked,
+  digitOnKeyDown,
+  getFields,
+  getOffset,
+  mergeFilter,
+  onPageChanged,
+  onPageSizeChanged,
+  onSearch,
+  onSort,
+  onToggleSearch,
+  PageChange,
+  pageSizes,
+  PageSizeSelect,
+  resources,
+  setSortFilter,
+  Sortable,
+  updateState,
+  updateUrl,
+} from "react-hook-core"
+import { Link } from "react-router"
+import { Pagination } from "reactx-pagination"
+import { hideLoading, showLoading } from "ui-loading"
+import { toast } from "ui-toast"
+import { getStatusName, handleError, hasPermission, Permission, useResource } from "uione"
+import { Country, CountryFilter, getCountryService } from "./service"
+
+interface CountrySearch extends Sortable {
+  statusList: Item[]
+  total?: number
+  view?: string
+  fields?: string[]
+}
+
+export const CountriesForm = () => {
+  const canWrite = hasPermission(Permission.write)
+
+  const countryFilter: CountryFilter = { limit: resources.defaultLimit }
+  const initialState: CountrySearch = { statusList: [] }
+
+  const resource = useResource()
+  const refForm = useRef<HTMLFormElement>(null)
+  const [showFilter, setShowFilter] = useState(false)
+  const [state, setState] = useState<CountrySearch>(initialState)
+  const [list, setList] = useState<Country[]>([])
+  const [filter, setFilter] = useState<CountryFilter>(countryFilter)
+
+  useEffect(() => {
+    const initFilter = mergeFilter(buildFromUrl<CountryFilter>(), filter, pageSizes, ["status"])
+    setSortFilter(state, initFilter, setFilter)
+    search(initFilter, state, true) // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const toggleSearch = (e: MouseEvent<HTMLButtonElement>) => onToggleSearch(e, showFilter, setShowFilter)
+  const sort = (e: MouseEvent<HTMLButtonElement>) => onSort(e, search, filter, state)
+  const pageSizeChanged = (e: ChangeEvent<HTMLSelectElement>) => onPageSizeChanged(e, search, filter)
+  const pageChanged = (data: PageChange) => onPageChanged(data, search, filter)
+  const searchOnClick = (e: MouseEvent<HTMLButtonElement>) => onSearch(e, search, filter, state)
+
+  const statusOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    filter.page = 1
+    setFilter(filter)
+    search(filter)
+  }
+
+  const search = (obj: CountryFilter, sort?: Sortable, isFirstLoad?: boolean) => {
+    showLoading()
+    const fields = getFields(refForm.current, state.fields)
+    updateUrl(obj, isFirstLoad, setFilter, sort)
+    setFilter(obj)
+    const { limit, page } = obj
+    getCountryService()
+      .search({ ...obj }, limit, page, fields)
+      .then((res) => {
+        setState({ ...state, total: res.total, fields })
+        setList(res.list)
+        toast(buildMessage(resource, res.list, limit, page, res.total))
+      })
+      .catch(handleError)
+      .finally(hideLoading)
+  }
+
+  const offset = getOffset(filter.limit, filter.page)
+  return (
+    <div>
+      <header>
+        <h2>{resource.countries}</h2>
+        <div className="btn-group">
+          {state.view === "list" && (
+            <button type="button" id="btnTable" name="btnTable" className="btn-table" onClick={(e) => setState({ ...state, view: "table" })} />
+          )}
+          {state.view !== "list" && (
+            <button type="button" id="btnListView" name="btnListView" className="btn-list" onClick={(e) => setState({ ...state, view: "list" })} />
+          )}
+          {canWrite && <Link id="btnNew" className="btn-new" to="new" />}
+        </div>
+      </header>
+      <div className="main-body">
+        <form id="countrysForm" name="countrysForm" className="form" noValidate={true} ref={refForm}>
+          <section className="row search-group">
+            <label className="col s12 m6 search-input">
+              <PageSizeSelect id="limit" name="limit" size={filter.limit} sizes={pageSizes} onChange={pageSizeChanged} />
+              <input
+                type="text"
+                id="q"
+                name="q"
+                value={filter.q}
+                maxLength={80}
+                placeholder={resource.keyword}
+                onChange={(e) => {
+                  filter.q = e.target.value
+                  setFilter(filter)
+                }}
+              />
+              <button
+                type="button"
+                id="clearQBtn"
+                name="clearQBtn"
+                hidden={!filter.q}
+                className="btn-remove-text"
+                onClick={(e) => {
+                  filter.q = ""
+                  setFilter(filter)
+                }}
+              />
+              <button type="button" id="toggleSearchBtn" name="toggleSearchBtn" className="btn-filter" onClick={toggleSearch} />
+              <button type="submit" id="searchBtn" name="searchBtn" className="btn-search" onClick={searchOnClick} />
+            </label>
+            <Pagination className="col s12 m6" total={state.total} size={filter.limit} max={7} page={filter.page} onChange={pageChanged} />
+          </section>
+          <section className="row search-group inline" hidden={!showFilter}>
+            <label className="col s6 l3">
+              {resource.decimal_separator}
+              <input
+                type="text"
+                id="decimalSeparator"
+                name="decimalSeparator"
+                value={filter.decimalSeparator?.toString()}
+                onChange={(e) => updateState(e, filter, setFilter)}
+                maxLength={1}
+                placeholder={resource.decimal_separator}
+              />
+            </label>
+            <label className="col s6 l3">
+              {resource.group_separator}
+              <input
+                type="text"
+                id="groupSeparator"
+                name="groupSeparator"
+                value={filter.groupSeparator?.toString()}
+                onChange={(e) => updateState(e, filter, setFilter)}
+                maxLength={1}
+                placeholder={resource.group_separator}
+              />
+            </label>
+            <label className="col s6 l3">
+              {resource.currency_decimal_digits}
+              <input
+                type="tel"
+                id="currencyDecimalDigits"
+                name="currencyDecimalDigits"
+                data-type="integer"
+                className="text-right"
+                value={filter.currencyDecimalDigits?.toString()}
+                onChange={(e) => updateState(e, filter, setFilter)}
+                onKeyDown={digitOnKeyDown}
+                maxLength={1}
+                placeholder={resource.currency_decimal_digits}
+              />
+            </label>
+            <label className="col s6 l3">
+              {resource.currency_pattern}
+              <input
+                type="tel"
+                id="currencyPattern"
+                name="currencyPattern"
+                data-type="integer"
+                className="text-right"
+                value={filter.currencyPattern?.toString()}
+                onChange={(e) => updateState(e, filter, setFilter)}
+                onKeyDown={digitOnKeyDown}
+                maxLength={1}
+                placeholder={resource.currency_pattern}
+              />
+            </label>
+            <label className="col s12 m6">
+              {resource.status}
+              <section className="checkbox-group">
+                <label>
+                  <input type="checkbox" id="active" name="status" value="A" checked={checked(filter.status, "A")} onChange={statusOnChange} />
+                  {resource.active}
+                </label>
+                <label>
+                  <input type="checkbox" id="inactive" name="status" value="I" checked={checked(filter.status, "I")} onChange={statusOnChange} />
+                  {resource.inactive}
+                </label>
+              </section>
+            </label>
+          </section>
+        </form>
+        {state.view !== "list" && (
+          <div className="table-responsive">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>{resource.number}</th>
+                  <th data-field="countryCode">
+                    <button type="button" id="countryCodeSort" onClick={sort}>
+                      {resource.country_code}
+                    </button>
+                  </th>
+                  <th data-field="countryName">
+                    <button type="button" id="countryNameSort" onClick={sort}>
+                      {resource.country_name}
+                    </button>
+                  </th>
+                  <th data-field="nativeCountryName">
+                    <button type="button" id="nativeCountryNameSort" onClick={sort}>
+                      {resource.country_native_name}
+                    </button>
+                  </th>
+                  <th data-field="decimalSeparator">
+                    <button type="button" id="decimalSeparatorSort" onClick={sort}>
+                      {resource.decimal_separator}
+                    </button>
+                  </th>
+                  <th data-field="groupSeparator">
+                    <button type="button" id="groupSeparatorSort" onClick={sort}>
+                      {resource.group_separator}
+                    </button>
+                  </th>
+                  <th data-field="currencyCode">
+                    <button type="button" id="currencyCodeSort" onClick={sort}>
+                      {resource.currency_code}
+                    </button>
+                  </th>
+                  <th data-field="currencySymbol">
+                    <button type="button" id="currencySymbolSort" onClick={sort}>
+                      {resource.currency_symbol}
+                    </button>
+                  </th>
+                  <th data-field="currencyDecimalDigits">
+                    <button type="button" id="currencyDecimalDigitsSort" onClick={sort}>
+                      {resource.currency_decimal_digits}
+                    </button>
+                  </th>
+                  <th data-field="currencyPattern">
+                    <button type="button" id="currencyPatternSort" onClick={sort}>
+                      {resource.currency_pattern}
+                    </button>
+                  </th>
+                  <th data-field="currencySample">
+                    <button type="button" id="currencySampleSort" onClick={sort}>
+                      {resource.currency_sample}
+                    </button>
+                  </th>
+                  <th data-field="status">
+                    <button type="button" id="statusSort" onClick={sort}>
+                      {resource.status}
+                    </button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {list &&
+                  list.map((item, i) => {
+                    return (
+                      <tr key={i}>
+                        <td className="text-right">{offset + i + 1}</td>
+                        <td>{item.countryCode}</td>
+                        <td>
+                          <Link to={`${item.countryCode}`}>{item.countryName}</Link>
+                        </td>
+                        <td>{item.nativeCountryName}</td>
+                        <td>{item.decimalSeparator}</td>
+                        <td>{item.groupSeparator}</td>
+                        <td>{item.currencyCode}</td>
+                        <td>{item.currencySymbol}</td>
+                        <td>{item.currencyDecimalDigits}</td>
+                        <td>{item.currencyPattern}</td>
+                        <td>{item.currencySample}</td>
+                        <td>{getStatusName(item.status)}</td>
+                      </tr>
+                    )
+                  })}
+              </tbody>
+            </table>
+          </div>
+        )}
+        {state.view === "list" && (
+          <ul className="row list">
+            {list &&
+              list.map((item, i) => {
+                return (
+                  <li key={i} className="col s12 m6 l3 xl4 list-item">
+                    <Link to={`${item.countryCode}`}>
+                      {item.countryCode} - {item.currencyCode}
+                    </Link>
+                    <button className="btn-detail" />
+                    <p className="space-between">
+                      {item.countryName} <span>{item.currencySymbol}</span>
+                    </p>
+                  </li>
+                )
+              })}
+          </ul>
+        )}
+      </div>
+    </div>
+  )
+}

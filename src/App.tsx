@@ -1,122 +1,142 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import axios from "axios"
+import * as csv from "csvtojson"
+import { getCurrency, getLocale } from "locale-service"
+import { phonecodes } from "phonecodes"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { alertError, confirm, resources as uiplusResources } from "ui-alert"
+import { loading } from "ui-loading"
+import { resources as uiresources, UIService } from "ui-plus"
+import { toast } from "ui-toast"
+import { storage } from "uione"
+import type { StringMap } from 'uione';
+import { resources as vresources } from "validation-core"
+import { DefaultCsvService, resources } from "web-clients"
+import { AuditLogsForm } from "./audit-log"
+import { ChangePasswordForm } from "./authentication/change-password-form"
+import { ForgotPasswordForm } from "./authentication/forgot-password-form"
+import { ResetPasswordForm } from "./authentication/reset-password-form"
+import { SigninForm } from "./authentication/signin-form"
+import { SignupForm } from "./authentication/signup-form"
+import { config } from "./config"
+import AboutPage from "./core/about"
+import HomePage from "./core/home"
+import LayoutPage from "./core/layout"
+import { resources as locales } from "./core/resources"
+import CountriesRoute from "./country"
+import CurrenciesRoute from "./currency"
+import LocalesRoute from "./locale"
+import RolesRoute from "./role"
+import { SettingsForm } from "./settings"
+import UsersRoute from "./user"
 
+// tslint:disable:ordered-import
+import "./assets/css/reset.css"
+import "./assets/fonts/material-icon/css/material-icons.css"
+import "./assets/fonts/Roboto/font.css";
+import "./assets/css/checkbox.css"
+import "./assets/css/radio.css"
+import "./assets/css/grid.css"
+import "./assets/css/alert.css"
+import "./assets/css/loader.css"
+import "./assets/css/page.css"
+import "./assets/css/main.css"
+import "./assets/css/modal.css"
+import "./assets/css/multi-select.css"
+import "./assets/css/form.css"
+import "./assets/css/article.css"
+import "./assets/css/card.css"
+import "./assets/css/table.css"
+import "./assets/css/list-detail.css"
+import "./assets/css/data-list.css"
+import "./assets/css/solid-container.css"
+import "./assets/css/button.css"
+import "./assets/css/search.css"
+import "./assets/css/layout.css"
+import "./assets/css/theme.css"
+import "./assets/css/dark.css"
+import "./assets/css/grey.css"
+import "./assets/css/grey-dark.css"
+import "./assets/css/badge.css"
+
+axios.defaults.withCredentials = true
+
+export const statusNames: Map<string, string> = new Map([
+  ["A", "Active"],
+  ["I", "Inactive"],
+])
+function getStatusName(status?: string, map?: StringMap): string | undefined {
+  if (!status) {
+    return ""
+  }
+  return statusNames.get(status)
+}
+let isInit = false
+export function init() {
+  if (isInit) {
+    return
+  }
+  isInit = true
+  storage.setConfig(config)
+  resources.csv = new DefaultCsvService(csv)
+  resources.config = {
+    list: "list",
+  }
+  storage.home = "/home"
+  // storage.token = getToken;
+  // storage.moment = true;
+  storage.setResources(locales)
+  storage.setLoadingService(loading)
+  storage.setUIService(new UIService())
+  storage.currency = getCurrency
+  storage.locale = getLocale
+  storage.alert = alertError
+  storage.confirm = confirm
+  storage.message = toast
+  storage.getStatusName = getStatusName
+
+  const resource = storage.resource()
+  vresources.phonecodes = phonecodes
+  uiresources.currency = getCurrency
+  uiresources.resource = resource
+
+  const res = storage.getResource()
+
+  uiplusResources.confirmHeader = res.confirm
+  uiplusResources.leftText = res.no
+  uiplusResources.rightText = res.yes
+  uiplusResources.errorHeader = res.error
+  uiplusResources.warningHeader = res.warning
+  uiplusResources.infoHeader = res.info
+  uiplusResources.successHeader = res.success
+}
 function App() {
-  const [count, setCount] = useState(0)
-
+  init()
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route index={true} element={<SigninForm />} />
+        <Route path="signin" element={<SigninForm />} />
+        <Route path="signup" element={<SignupForm />} />
+        <Route path="change-password" element={<ChangePasswordForm />} />
+        <Route path="reset-password" element={<ResetPasswordForm />} />
+        <Route path="forgot-password" element={<ForgotPasswordForm />} />
+        <Route path="about">
+          <Route index={true} element={<AboutPage />} />
+          <Route path=":number" element={<AboutPage />} />
+        </Route>
+        <Route path="" element={<LayoutPage />}>
+          <Route path="/home" element={<HomePage />} />
+          <Route path=":number" element={<AboutPage />} />
+          <Route path="/settings" element={<SettingsForm />} />
+          <Route path="users/*" element={<UsersRoute />} />
+          <Route path="roles/*" element={<RolesRoute />} />
+          <Route path="currencies/*" element={<CurrenciesRoute />} />
+          <Route path="locales/*" element={<LocalesRoute />} />
+          <Route path="countries/*" element={<CountriesRoute />} />
+          <Route path="audit-logs" element={<AuditLogsForm />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
-
 export default App
