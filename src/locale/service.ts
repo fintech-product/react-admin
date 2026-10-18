@@ -1,7 +1,7 @@
 import axios from "axios"
 import { HttpRequest } from "axios-core"
 import { options, storage } from "uione"
-import { LocaleClient, LocaleService } from "./locale"
+import { LocaleClient, type LocaleService } from "./locale"
 
 export * from "./locale"
 

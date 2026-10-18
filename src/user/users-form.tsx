@@ -1,5 +1,5 @@
-import { Item } from "onecore"
-import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react"
+import type { Item } from "onecore"
+import { type ChangeEvent, type MouseEvent, useEffect, useRef, useState } from "react"
 import {
   buildFromUrl,
   buildMessage,
@@ -12,13 +12,13 @@ import {
   onSearch,
   onSort,
   onToggleSearch,
-  PageChange,
+  type PageChange,
   pageSizes,
   PageSizeSelect,
   resources,
   Select,
   setSortFilter,
-  Sortable,
+  type Sortable,
   updateUrl,
 } from "react-hook-core"
 import { Link } from "react-router"
@@ -28,7 +28,7 @@ import { toast } from "ui-toast"
 import { getStatusName, handleError, hasPermission, Permission, useResource } from "uione"
 import femaleIcon from "../assets/images/female.png"
 import maleIcon from "../assets/images/male.png"
-import { getUserService, User, UserFilter } from "./service"
+import { getUserService, type User, type UserFilter } from "./service"
 
 interface UserSearch extends Sortable {
   statusList: Item[]

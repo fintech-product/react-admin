@@ -1,5 +1,5 @@
-import { Item } from "onecore"
-import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react"
+import type { Item } from "onecore"
+import { type ChangeEvent, type MouseEvent, useEffect, useRef, useState } from "react"
 import {
   buildFromUrl,
   buildMessage,
@@ -11,21 +11,21 @@ import {
   onPageSizeChanged,
   onSearch,
   onSort,
-  PageChange,
+  type PageChange,
   pageSizes,
   PageSizeSelect,
   resources,
   setSortFilter,
-  Sortable,
+  type Sortable,
   updateState,
-  updateUrl
+  updateUrl,
 } from "react-hook-core"
 import Pagination from "reactx-pagination"
 import { hideLoading, showLoading } from "ui-loading"
 import { addDays, addSeconds, formatFullDateTime } from "ui-plus"
 import { toast } from "ui-toast"
 import { getDateFormat, handleError, useLocale, useResource } from "uione"
-import { AuditLog, AuditLogFilter, getAuditLogService } from "./audit-log"
+import { type AuditLog, type AuditLogFilter, getAuditLogService } from "./audit-log"
 import "./style.css"
 
 interface AuditLogSearch extends Sortable {
@@ -110,14 +110,7 @@ export const AuditLogsForm = () => {
           <section className="row section">
             <label className="col s12 m2 l4">
               {resource.action}
-              <input
-                type="text"
-                id="action"
-                name="action"
-                defaultValue={filter.action}
-                maxLength={40}
-                onChange={onChange}
-              />
+              <input type="text" id="action" name="action" defaultValue={filter.action} maxLength={40} onChange={onChange} />
             </label>
             <label className="col s12 m5 l4">
               {resource.audit_log_time_from}
@@ -149,7 +142,9 @@ export const AuditLogsForm = () => {
               {resource.page_size}
               <PageSizeSelect id="limit" name="limit" size={filter.limit} sizes={pageSizes} onChange={pageSizeChanged} />
             </label>
-            <button type="submit" className="btn-search" onClick={searchOnClick}>{resource.search}</button>
+            <button type="submit" className="btn-search" onClick={searchOnClick}>
+              {resource.search}
+            </button>
           </section>
         </form>
         <form className="list-result">

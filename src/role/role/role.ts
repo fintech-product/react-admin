@@ -1,4 +1,4 @@
-import { Attributes, Filter, Result, SearchResult, Service, Tracking } from "onecore"
+import type { Attributes, Filter, Result, SearchResult, Service, Tracking } from "onecore"
 
 export interface Privilege {
   id: string

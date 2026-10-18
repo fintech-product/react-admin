@@ -1,11 +1,11 @@
-import { MouseEvent, useEffect, useRef, useState } from "react"
+import { type MouseEvent, useEffect, useRef, useState } from "react"
 import { clone, digitOnKeyDown, Error, isEmpty, isSuccessful, makeDiff, onBack } from "react-hook-core"
 import { useNavigate, useParams } from "react-router"
 import { alertError, alertSuccess, alertWarning, confirm } from "ui-alert"
 import { hideLoading, showLoading } from "ui-loading"
 import { addError, formatText, initForm, registerEvents, requiredOnBlur, showFormError, validateForm } from "ui-plus"
 import { getLocale, handleError, hasPermission, Permission, Status, useResource } from "uione"
-import { Country, getCountryService } from "./service"
+import { type Country, getCountryService } from "./service"
 
 const createCountry = (): Country => {
   const country = {} as Country

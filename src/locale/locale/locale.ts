@@ -1,4 +1,4 @@
-import { Attributes, Filter, Service } from "onecore"
+import type { Attributes, Filter, Service } from "onecore"
 
 export interface Locale {
   code: string

@@ -1,6 +1,6 @@
 import { HttpRequest } from "axios-core"
 import { Client } from "web-clients"
-import { User, UserFilter, userModel, UserService } from "./user"
+import { type User, type UserFilter, userModel, type UserService } from "./user"
 
 export * from "./user"
 
@@ -26,10 +26,11 @@ export interface RoleService {
   all(): Promise<Role[]>
 }
 export class RoleClient implements RoleService {
-  constructor(
-    protected http: HttpRequest,
-    protected url: string,
-  ) {
+  protected http: HttpRequest
+  protected url: string
+  constructor(http: HttpRequest, url: string) {
+    this.http = http
+    this.url = url
     this.all = this.all.bind(this)
   }
   all(): Promise<Role[]> {

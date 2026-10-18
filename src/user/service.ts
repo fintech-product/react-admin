@@ -1,8 +1,8 @@
 import axios from "axios"
 import { HttpRequest } from "axios-core"
 import { options, storage } from "uione"
-import { MasterDataClient, MasterDataService } from "./master-data"
-import { RoleClient, RoleService, UserClient, UserService } from "./user"
+import { MasterDataClient, type MasterDataService } from "./master-data"
+import { RoleClient, type RoleService, UserClient, type UserService } from "./user"
 
 export * from "./user"
 // axios.defaults.withCredentials = true;

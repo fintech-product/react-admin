@@ -1,8 +1,8 @@
 import axios from "axios"
 import { HttpRequest } from "axios-core"
 import { options, storage } from "uione"
-import { MasterDataClient, MasterDataService } from "./master-data"
-import { SettingsClient, SettingsService } from "./settings"
+import { MasterDataClient, type MasterDataService } from "./master-data"
+import { SettingsClient, type SettingsService } from "./settings"
 
 export * from "./settings"
 

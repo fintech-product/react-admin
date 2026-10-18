@@ -1,5 +1,5 @@
-import { Item } from "onecore"
-import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react"
+import type { Item } from "onecore"
+import { type ChangeEvent, type MouseEvent, useEffect, useRef, useState } from "react"
 import {
   buildFromUrl,
   buildMessage,
@@ -12,12 +12,12 @@ import {
   onSearch,
   onSort,
   onToggleSearch,
-  PageChange,
+  type PageChange,
   pageSizes,
   PageSizeSelect,
   resources,
   setSortFilter,
-  Sortable,
+  type Sortable,
   updateUrl,
 } from "react-hook-core"
 import { Link } from "react-router"
@@ -25,7 +25,7 @@ import { Pagination } from "reactx-pagination"
 import { hideLoading, showLoading } from "ui-loading"
 import { toast } from "ui-toast"
 import { getStatusName, handleError, hasPermission, useResource, write } from "uione"
-import { getRoleService, Role, RoleFilter } from "./service"
+import { getRoleService, type Role, type RoleFilter } from "./service"
 
 interface RoleSearch extends Sortable {
   statusList: Item[]

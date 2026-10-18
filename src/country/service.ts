@@ -1,7 +1,7 @@
 import axios from "axios"
 import { HttpRequest } from "axios-core"
 import { options, storage } from "uione"
-import { CountryClient, CountryService } from "./country"
+import { CountryClient, type CountryService } from "./country"
 
 export * from "./country"
 

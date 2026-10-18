@@ -1,6 +1,6 @@
 import { HttpRequest } from "axios-core"
 import { SearchClient } from "web-clients"
-import { User, UserFilter, userModel, UserService } from "./user"
+import { type User, type UserFilter, userModel, type UserService } from "./user"
 
 export * from "./user"
 

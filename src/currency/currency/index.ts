@@ -1,6 +1,6 @@
 import { HttpRequest } from "axios-core"
 import { Client } from "web-clients"
-import { Currency, CurrencyFilter, currencyModel, CurrencyService } from "./currency"
+import { type Currency, type CurrencyFilter, currencyModel, type CurrencyService } from "./currency"
 
 export * from "./currency"
 

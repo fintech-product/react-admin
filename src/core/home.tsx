@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { buildShownItems, Groups, Item } from "react-groups"
+import { buildShownItems, Groups, type Item } from "react-groups"
 import { useSearchParams } from "react-router"
 import { getPrivileges, useResource } from "uione"
 

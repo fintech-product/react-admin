@@ -1,7 +1,7 @@
 import axios from "axios"
 import { HttpRequest } from "axios-core"
 import { options, storage } from "uione"
-import { UserClient, UserService } from "./user"
+import { UserClient, type UserService } from "./user"
 
 export * from "./user"
 // axios.defaults.withCredentials = true;

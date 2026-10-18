@@ -1,9 +1,9 @@
-import { Item } from "onecore"
+import type { Item } from "onecore"
 import { useEffect, useRef, useState } from "react"
 import { confirm } from "ui-alert"
 import { initForm, registerEvents, requiredOnBlur } from "ui-plus"
 import { getDateFormat, getLanguage, handleError, showMessage, useResource } from "uione"
-import { getMasterDataService, getSettingsService, Settings } from "./service"
+import { getMasterDataService, getSettingsService, type Settings } from "./service"
 
 interface InternalState {
   settings: Settings

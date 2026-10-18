@@ -1,7 +1,7 @@
 import axios from "axios"
 import { HttpRequest } from "axios-core"
 import { options, storage } from "uione"
-import { AuditLogClient, AuditLogService } from "./audit-log"
+import { AuditLogClient, type AuditLogService } from "./audit-log"
 
 const httpRequest = new HttpRequest(axios, options)
 export interface Config {

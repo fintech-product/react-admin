@@ -1,5 +1,5 @@
-import { PasswordReset, resetPassword, validateReset } from "password-client"
-import { MouseEvent, useEffect, useRef, useState } from "react"
+import { type PasswordReset, resetPassword, validateReset } from "password-client"
+import { type MouseEvent, useEffect, useRef, useState } from "react"
 import { updateState, useMessage } from "react-hook-core"
 import { Link } from "react-router"
 import { initForm, registerEvents } from "ui-plus"

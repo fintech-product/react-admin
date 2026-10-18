@@ -1,6 +1,6 @@
 import { HttpRequest } from "axios-core"
 import { Client } from "web-clients"
-import { Country, CountryFilter, countryModel, CountryService } from "./country"
+import { type Country, type CountryFilter, countryModel, type CountryService } from "./country"
 
 export * from "./country"
 

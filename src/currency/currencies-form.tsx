@@ -1,5 +1,5 @@
-import { Item } from "onecore"
-import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react"
+import type { Item } from "onecore"
+import { type ChangeEvent, type MouseEvent, useEffect, useRef, useState } from "react"
 import {
   buildFromUrl,
   buildMessage,
@@ -14,13 +14,13 @@ import {
   onSearch,
   onSort,
   onToggleSearch,
-  PageChange,
+  type PageChange,
   pageSizes,
   PageSizeSelect,
   resetSearch,
   resources,
   setSortFilter,
-  Sortable,
+  type Sortable,
   updateState,
   updateUrl,
 } from "react-hook-core"
@@ -29,7 +29,7 @@ import { Pagination } from "reactx-pagination"
 import { hideLoading, showLoading } from "ui-loading"
 import { toast } from "ui-toast"
 import { getStatusName, handleError, hasPermission, Permission, useResource } from "uione"
-import { Currency, CurrencyFilter, getCurrencyService } from "./service"
+import { type Currency, type CurrencyFilter, getCurrencyService } from "./service"
 
 interface CurrencySearch extends Sortable {
   statusList: Item[]

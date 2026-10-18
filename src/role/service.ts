@@ -1,8 +1,8 @@
 import axios from "axios"
 import { HttpRequest } from "axios-core"
 import { options, storage } from "uione"
-import { UserClient, UserService } from "../service/user"
-import { RoleClient, RoleService } from "./role"
+import { UserClient, type UserService } from "../service/user"
+import { RoleClient, type RoleService } from "./role"
 
 export * from "../service/user"
 export * from "./role"

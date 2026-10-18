@@ -1,11 +1,10 @@
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react"
+import { type ChangeEvent, type MouseEvent, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
 import { confirm } from "ui-alert"
 import { hideLoading, showLoading } from "ui-loading"
 import { handleError, hasPermission, Permission, showMessage, useResource } from "uione"
-import { getRoleService, getUserService, User } from "./service"
-
-import { Role } from "./user"
+import { getRoleService, getUserService, type User } from "./service"
+import type { Role } from "./user"
 
 interface InternalState {
   user: User

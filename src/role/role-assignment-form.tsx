@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react"
+import { type ChangeEvent, type MouseEvent, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
 import { confirm } from "ui-alert"
 import { hideLoading, showLoading } from "ui-loading"
@@ -6,7 +6,7 @@ import { handleError, hasPermission, showMessage, useResource, write } from "uio
 import femaleIcon from "../assets/images/female.png"
 import maleIcon from "../assets/images/male.png"
 import { UsersLookup } from "../components/users-lookup"
-import { getRoleService, getUserService, Role, User } from "./service"
+import { getRoleService, getUserService, type Role, type User } from "./service"
 
 interface InternalState {
   role: Role

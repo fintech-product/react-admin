@@ -1,13 +1,12 @@
-import { useEffect, useRef, useState } from "react"
-import type { ChangeEvent, MouseEvent } from 'react';
+import { type ChangeEvent, type MouseEvent, useEffect, useRef, useState } from "react"
 import { clone, digitOnKeyDown, Error, formatText, isEmpty, isSuccessful, makeDiff, onBack, updateState } from "react-hook-core"
 import { useNavigate, useParams } from "react-router"
 import { alertError, alertSuccess, alertWarning, confirm } from "ui-alert"
 import { hideLoading, showLoading } from "ui-loading"
 import { addError, initForm, registerEvents, requiredOnBlur, showFormError, validateForm } from "ui-plus"
 import { getLocale, handleError, hasPermission, Permission, useResource } from "uione"
+import type { Locale } from "./service"
 import { getLocaleService } from "./service"
-import type { Locale } from './service';
 
 const createLocale = (): Locale => {
   const locale = {} as Locale

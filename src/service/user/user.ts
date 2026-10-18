@@ -1,4 +1,4 @@
-import { Attributes, Filter, SearchService } from "onecore"
+import type { Attributes, Filter, SearchService } from "onecore"
 
 export interface User {
   userId: string

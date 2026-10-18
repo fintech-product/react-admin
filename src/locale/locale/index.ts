@@ -1,6 +1,6 @@
 import { HttpRequest } from "axios-core"
 import { Client } from "web-clients"
-import { Locale, LocaleFilter, localeModel, LocaleService } from "./locale"
+import { type Locale, type LocaleFilter, localeModel, type LocaleService } from "./locale"
 
 export * from "./locale"
 

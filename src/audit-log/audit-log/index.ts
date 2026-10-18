@@ -2,7 +2,7 @@ import axios from "axios"
 import { HttpRequest } from "axios-core"
 import { options, storage } from "uione"
 import { ViewSearchClient } from "web-clients"
-import { AuditLog, AuditLogFilter, auditLogModel, AuditLogService } from "./audit-log"
+import { type AuditLog, type AuditLogFilter, auditLogModel, type AuditLogService } from "./audit-log"
 
 export * from "./audit-log"
 

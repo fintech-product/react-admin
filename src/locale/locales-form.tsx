@@ -1,5 +1,5 @@
-import { Item } from "onecore"
-import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react"
+import type { Item } from "onecore"
+import { type ChangeEvent, type MouseEvent, useEffect, useRef, useState } from "react"
 import {
   buildFromUrl,
   buildMessage,
@@ -13,12 +13,12 @@ import {
   onSearch,
   onSort,
   onToggleSearch,
-  PageChange,
+  type PageChange,
   pageSizes,
   PageSizeSelect,
   resources,
   setSortFilter,
-  Sortable,
+  type Sortable,
   updateState,
   updateUrl,
 } from "react-hook-core"
@@ -27,7 +27,7 @@ import { Pagination } from "reactx-pagination"
 import { hideLoading, showLoading } from "ui-loading"
 import { toast } from "ui-toast"
 import { handleError, hasPermission, Permission, useResource } from "uione"
-import { getLocaleService, Locale, LocaleFilter } from "./service"
+import { getLocaleService, type Locale, type LocaleFilter } from "./service"
 
 interface LocaleSearch extends Sortable {
   statusList: Item[]

@@ -1,9 +1,9 @@
 import axios from "axios"
 import { HttpRequest } from "axios-core"
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react"
+import { type ChangeEvent, type MouseEvent, useEffect, useState } from "react"
 import { Link, Outlet, useLocation, useNavigate, useSearchParams } from "react-router"
 import { collapseAll, expandAll, Nav, sub } from "reactx-nav"
-import { getPrivileges, getUsername, hasClass, options, parentHasClass, Privilege, storage, StringMap, useResource, useUser } from "uione"
+import { getPrivileges, getUsername, hasClass, options, parentHasClass, type Privilege, storage, type StringMap, useResource, useUser } from "uione"
 import logo from "../assets/images/logo.png"
 import "./layout.css"
 

@@ -1,7 +1,7 @@
 import axios from "axios"
 import { HttpRequest } from "axios-core"
 import { options, storage } from "uione"
-import { CurrencyClient, CurrencyService } from "./currency"
+import { CurrencyClient, type CurrencyService } from "./currency"
 
 export * from "./currency"
 

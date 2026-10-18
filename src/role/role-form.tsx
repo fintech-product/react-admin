@@ -1,11 +1,11 @@
-import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react"
+import { type ChangeEvent, type MouseEvent, useEffect, useRef, useState } from "react"
 import { clone, formatText, isEmpty, isSuccessful, makeDiff, onBack } from "react-hook-core"
 import { Link, useNavigate, useParams } from "react-router"
 import { alertError, alertSuccess, alertWarning, confirm } from "ui-alert"
 import { hideLoading, showLoading } from "ui-loading"
 import { addError, initForm, patternOnBlur, registerEvents, requiredOnBlur, setReadOnly, showFormError, validateForm } from "ui-plus"
 import { getLocale, handleError, hasPermission, Status, useResource, write } from "uione"
-import { getRoleService, Privilege, Role } from "./service"
+import { getRoleService, type Privilege, type Role } from "./service"
 import "./style.css"
 
 const regexId = "^(?=.*[a-z])[a-z0-9_]{1,100}$" // lowercase letters, numbers and underscores

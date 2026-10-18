@@ -1,11 +1,11 @@
-import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react"
+import { type ChangeEvent, type MouseEvent, useEffect, useRef, useState } from "react"
 import { clone, digitOnKeyDown, Error, formatText, isEmpty, isSuccessful, makeDiff, onBack, updateState } from "react-hook-core"
 import { useNavigate, useParams } from "react-router"
 import { alertError, alertSuccess, alertWarning, confirm } from "ui-alert"
 import { hideLoading, showLoading } from "ui-loading"
 import { addError, initForm, registerEvents, requiredOnBlur, showFormError, validateForm } from "ui-plus"
 import { getLocale, handleError, hasPermission, Permission, Status, useResource } from "uione"
-import { Currency, getCurrencyService } from "./service"
+import { type Currency, getCurrencyService } from "./service"
 
 const createCurrency = (): Currency => {
   const currency = {} as Currency

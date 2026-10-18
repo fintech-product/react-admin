@@ -1,4 +1,4 @@
-import { Attributes, Filter, SearchResult, TimeRange } from "onecore"
+import type { Attributes, Filter, SearchResult, TimeRange } from "onecore"
 
 export interface AuditLog {
   id: string

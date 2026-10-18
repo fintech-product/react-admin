@@ -1,12 +1,12 @@
-import { Item } from "onecore"
-import { MouseEvent, useEffect, useRef, useState } from "react"
+import type { Item } from "onecore"
+import { type MouseEvent, useEffect, useRef, useState } from "react"
 import { clone, Error, isEmpty, isSuccessful, makeDiff, normalizePhone, onBack } from "react-hook-core"
 import { Link, useNavigate, useParams } from "react-router"
 import { alertError, alertSuccess, alertWarning, confirm } from "ui-alert"
 import { hideLoading, showLoading } from "ui-loading"
 import { emailOnBlur, formatPhone, initForm, phoneOnBlur, registerEvents, requiredOnBlur, showFormError, validateForm } from "ui-plus"
 import { Gender, getLocale, handleError, handleSelect, hasPermission, Permission, Status, useResource } from "uione"
-import { getMasterDataService, getUserService, User } from "./service"
+import { getMasterDataService, getUserService, type User } from "./service"
 
 const createUser = (): User => {
   const user = {} as User

@@ -1,4 +1,4 @@
-import { Attributes, Filter, Result, SearchResult, Tracking } from "onecore"
+import type { Attributes, Filter, Result, SearchResult, Tracking } from "onecore"
 
 export interface User extends Tracking {
   userId: string

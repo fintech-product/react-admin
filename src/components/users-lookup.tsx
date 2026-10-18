@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, MouseEvent, useEffect, useRef, useState } from "react"
+import { type ChangeEvent, type KeyboardEvent, type MouseEvent, useEffect, useRef, useState } from "react"
 import {
   buildMessage,
   buildSortFilter,
@@ -9,11 +9,11 @@ import {
   onPageSizeChanged,
   onSearch,
   onSort,
-  PageChange,
+  type PageChange,
   pageSizes,
   PageSizeSelect,
   resources,
-  Sortable,
+  type Sortable,
   updateState,
 } from "react-hook-core"
 import ReactModal from "react-modal"
@@ -21,7 +21,7 @@ import Pagination from "reactx-pagination"
 import { hideLoading, showLoading } from "ui-loading"
 import { toast } from "ui-toast"
 import { handleError, useResource } from "uione"
-import { getUserService, User, UserFilter } from "../service"
+import { getUserService, type User, type UserFilter } from "../service"
 
 ReactModal.setAppElement("#root")
 interface Props {

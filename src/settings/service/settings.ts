@@ -1,4 +1,4 @@
-import { HttpRequest } from "onecore"
+import type { HttpRequest } from "onecore"
 
 export interface Settings {
   language: string
@@ -10,10 +10,11 @@ export interface SettingsService {
 }
 
 export class SettingsClient implements SettingsService {
-  constructor(
-    protected http: HttpRequest,
-    protected url: string,
-  ) {
+  protected http: HttpRequest
+  protected url: string
+  constructor(http: HttpRequest, url: string) {
+    this.http = http
+    this.url = url
     this.save = this.save.bind(this)
   }
   save(settings: Settings): Promise<number> {
