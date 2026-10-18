@@ -16,44 +16,21 @@ export interface Props {
   items: Privilege[]
 }
 export function Nav(p: Props) {
-  return React.createElement(
-    "nav",
-    { className: p.className },
-    React.createElement(
-      "ul",
-      null,
-      React.createElement(
-        "li",
-        null,
-        React.createElement(
-          "p",
-          { className: "sidebar-off-menu" },
-          React.createElement("button", { className: "toggle", onClick: p.toggle }),
-          React.createElement("i", { className: "expand", onClick: p.expand }),
-          React.createElement("i", { className: "collapse", onClick: p.collapse }),
-        ),
-      ),
-      renderItems(p.path, p.pins, p.pin, p.resource, p.iconClass, true, true),
-      renderItems(p.path, p.items, p.pin, p.resource, p.iconClass, true),
-    ),
-  )
-  /*
   return (
     <nav className={p.className}>
       <ul>
         <li>
-          <p className='sidebar-off-menu'>
-            <button className='toggle' onClick={p.toggle} />
-            <i className='expand' onClick={p.expand} />
-            <i className='collapse' onClick={p.collapse} />
+          <p className="sidebar-off-menu">
+            <button className="toggle" onClick={p.toggle} />
+            <i className="expand" onClick={p.expand} />
+            <i className="collapse" onClick={p.collapse} />
           </p>
         </li>
         {renderItems(p.path, p.pins, p.pin, p.resource, p.iconClass, true, true)}
         {renderItems(p.path, p.items, p.pin, p.resource, p.iconClass, true)}
       </ul>
     </nav>
-  );
-  */
+  )
 }
 export interface StringMap {
   [key: string]: string
