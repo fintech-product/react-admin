@@ -20,7 +20,7 @@ import {
   updateState,
   updateUrl,
 } from "react-hook-core"
-import Pagination from "reactx-pagination"
+import { Pagination } from "reactx-pagination"
 import { hideLoading, showLoading } from "ui-loading"
 import { addDays, addSeconds, formatFullDateTime } from "ui-plus"
 import { toast } from "ui-toast"
