@@ -17,7 +17,7 @@ import {
   updateState,
 } from "react-hook-core"
 import ReactModal from "react-modal"
-import Pagination from "reactx-pagination"
+import { Pagination } from "reactx-pagination"
 import { hideLoading, showLoading } from "ui-loading"
 import { toast } from "ui-toast"
 import { handleError, useResource } from "uione"
