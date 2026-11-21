@@ -6,16 +6,16 @@ The project is a client-side React SPA bootstrapped by Vite.
 
 ```mermaid
 flowchart TD
-    HTML[index.html\nDOM shell + alert/loading/toast hosts]
-    MAIN[src/main.tsx\ncreateRoot + StrictMode]
-    APP[src/App.tsx\ninit() + BrowserRouter]
-    INIT[Global initialization\nconfig, resources, storage, UI/loading/alert/toast]
-    ROUTES[React Router route tree]
-    SHELL[core/layout.tsx\nAuthenticated shell + Nav + Outlet]
-    FEATURES[Feature routes and forms]
-    SERVICES[Feature service factories]
-    CLIENTS[axios-core + web-clients / auth clients]
-    BACKEND[admin-service + auth/signup/password/OAuth services]
+    HTML["index.html<br/>DOM shell + alert/loading/toast hosts"]
+    MAIN["src/main.tsx<br/>createRoot + StrictMode"]
+    APP["src/App.tsx<br/>init() + BrowserRouter"]
+    INIT["Global initialization<br/>config, resources, storage, UI/loading/alert/toast"]
+    ROUTES["React Router route tree"]
+    SHELL["core/layout.tsx<br/>Authenticated shell + Nav + Outlet"]
+    FEATURES["Feature routes and forms"]
+    SERVICES["Feature service factories"]
+    CLIENTS["axios-core + web-clients / auth clients"]
+    BACKEND["admin-service + auth/signup/password/OAuth services"]
 
     HTML --> MAIN --> APP
     APP --> INIT
@@ -52,14 +52,14 @@ Most features keep responsibilities in separate files:
 
 ```mermaid
 flowchart TD
-    ROUTE[index.tsx\nNested Routes]
-    LIST[list form\nsearch / paging / sorting]
-    EDIT[detail form\ncreate / load / patch]
-    MODEL[domain model\ninterfaces + Filter + Attributes]
-    SERVICE[service.ts\nlazy service factory]
-    CLIENT[domain/index.ts\nweb-clients Client]
-    REQUEST[HttpRequest]
-    API[backend endpoint]
+    ROUTE["index.tsx<br/>Nested Routes"]
+    LIST["list form<br/>search / paging / sorting"]
+    EDIT["detail form<br/>create / load / patch"]
+    MODEL["domain model<br/>interfaces + Filter + Attributes"]
+    SERVICE["service.ts<br/>lazy service factory"]
+    CLIENT["domain/index.ts<br/>web-clients Client"]
+    REQUEST["HttpRequest"]
+    API["backend endpoint"]
     ROUTE --> LIST
     ROUTE --> EDIT
     LIST --> SERVICE
